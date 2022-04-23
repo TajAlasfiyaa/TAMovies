@@ -1,6 +1,6 @@
 import "./App.css";
 import NavBar from "./components/navBar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import Shop from "./components/shop";
 import Group from "./components/group";
 import Movies from "./components/movies";
@@ -8,16 +8,21 @@ import NotFound from "./components/notFound";
 import MoviesForm from "./components/moviesForm";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
+import RegisterForm from "./components/registerForm";
+import NewMovies from "./components/newMovies";
 function App() {
+  const WrappedComponent = (props) => {
+    const params = useParams();
+    return <MoviesForm params={params} {...props} />;
+  };
   return (
-    <div className="App">
+    <div className="App h-screen">
       <NavBar />
-      <div className="content h-screen		">
+      <div className="content 		">
         <Routes>
-          <Route path="/movie" element={<MoviesForm />}>
-            <Route path=":id" element={<MoviesForm />} />
-          </Route>
+          <Route path="/register" element={<RegisterForm />}></Route>
           <Route path="/login" element={<LoginForm />}></Route>
+          <Route path="/movies/:id" element={<MoviesForm />} />
           <Route path="/movies" element={<Movies />}></Route>
           <Route path="/" element={<Movies />}></Route>
           <Route path="/shop" element={<Shop />} />

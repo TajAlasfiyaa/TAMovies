@@ -1,22 +1,17 @@
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
+import { useParams, useNavigate, withRouter } from "react-router-dom";
+// import Form from "./form";
+// import { Joi } from "joi-browser";
+// import { getGenres } from "../services/fakeGenreService";
+// import { getMovie, saveMovie } from "./../services/fakeMovieService";
+import MoviesForms from "./moviesForms";
 const MoviesForm = () => {
-  let params = useParams();
-  let navitate = useNavigate();
-  function handleClick() {
-    navitate("/movies");
-  }
+  const { id } = useParams();
+  let navigate = useNavigate();
   return (
-    <div className="content">
-      <h2 className="text-3xl">
-        {" "}
-        Movies Form
-        <span className="text-red-700">{params.id}</span>
-      </h2>
-      <button onClick={handleClick} className="btn-default">
-        Save
-      </button>
+    <div>
+      <h1>Movie Form {id} </h1>
+      <MoviesForms params={id} navigate={navigate} />
     </div>
   );
 };

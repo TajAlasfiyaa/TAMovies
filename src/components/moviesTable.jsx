@@ -10,7 +10,7 @@ class MoviesTable extends Component {
       content: (movie) => (
         <Link
           className="text-blue-600 hover:underline"
-          to={`/movie/${movie._id}`}
+          to={`/movies/${movie._id}`}
         >
           {movie.title}
         </Link>

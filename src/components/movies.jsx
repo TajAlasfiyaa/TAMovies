@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import ListGroup from "./common/listgroup";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
+import { Link, Outlet } from "react-router-dom";
 
 class Movies extends Component {
   state = {
@@ -87,6 +88,9 @@ class Movies extends Component {
               {totalCount}
             </span>
           </div>
+          <button className="btn-default">
+            <Link to="/movies/new"> New Movie </Link>
+          </button>
           <MoviesTable
             movies={movies}
             onLike={this.handleLike}
