@@ -11,12 +11,8 @@ import Footer from "./components/footer";
 import RegisterForm from "./components/registerForm";
 import NewMovies from "./components/newMovies";
 function App() {
-  const WrappedComponent = (props) => {
-    const params = useParams();
-    return <MoviesForm params={params} {...props} />;
-  };
   return (
-    <div className="App h-screen">
+    <div className="App min-h-full">
       <NavBar />
       <div className="content 		">
         <Routes>

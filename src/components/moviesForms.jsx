@@ -3,7 +3,6 @@ import Joi from "joi-browser";
 import Form from "./form";
 import { getMovie, saveMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
-import { getMovies } from "./../services/fakeMovieService";
 
 class MovieForms extends Form {
   state = {
@@ -42,6 +41,7 @@ class MovieForms extends Form {
     if (movieId === "new") return;
 
     const movie = getMovie(movieId);
+    console.log(movie);
     if (!movie) return () => navigate("/not-found");
 
     this.setState({ data: this.mapToViewModel(movie) });
@@ -67,7 +67,7 @@ class MovieForms extends Form {
 
   render() {
     return (
-      <div>
+      <div className=" max-w-xs lg:max-w-xl mx-auto text-left">
         <h1>Movie Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}

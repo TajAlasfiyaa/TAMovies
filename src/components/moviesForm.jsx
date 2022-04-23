@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useNavigate, withRouter } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import Form from "./form";
 // import { Joi } from "joi-browser";
 // import { getGenres } from "../services/fakeGenreService";
