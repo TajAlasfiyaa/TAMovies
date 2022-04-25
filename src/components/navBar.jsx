@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { NavLink } from "react-router-dom";
+
+
 const NavBar = () => {
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">

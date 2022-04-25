@@ -1,21 +1,37 @@
-import React from "react";
+import React, { Component, useEffect } from "react";
 import Joi from "joi-browser";
 import Form from "./form";
 import { getMovie, saveMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
-
+import { Navigate } from "react-router-dom";
+import NotFound from "./notFound";
 class MovieForms extends Form {
   state = {
     data: {
       title: "",
-      genreId: "",
       numberInStock: "",
+      genreId: "",
       dailyRentalRate: "",
     },
     genres: [],
     errors: {},
   };
+  componentDidMount() {
+    const { params } = this.props;
+    const genres = getGenres();
+    this.setState({ genres });
 
+    if (params === "new") return;
+    const movie = getMovie(params);
+    if (!movie) return;
+    else this.setState({ data: this.mapToViewModel(movie) });
+  }
+  componentWillUnmount() {
+    const { params, navigate } = this.props;
+    if (params === "new") return;
+    const movie = getMovie(params);
+    if (!movie) return navigate("/not-found");
+  }
   schema = {
     _id: Joi.string(),
     title: Joi.string().required().label("Title"),
@@ -32,37 +48,22 @@ class MovieForms extends Form {
       .label("Daily Rental Rate"),
   };
 
-  componentDidMount() {
-    const { params, navigate } = this.props.params;
-    const genres = getGenres();
-    this.setState({ genres });
-
-    const movieId = params;
-    if (movieId === "new") return;
-
-    const movie = getMovie(movieId);
-    console.log(movie);
-    if (!movie) return () => navigate("/not-found");
-
-    this.setState({ data: this.mapToViewModel(movie) });
-  }
-
   mapToViewModel(movie) {
     return {
-      //    //  _id: movie._id,
-      //    title: movie.title,
-      //    genreId: movie.genre._id,
-      //    numberInStock: movie.numberInStock,
-      //    dailyRentalRate: movie.dailyRentalRate,
+      _id: movie._id,
+      title: movie.title,
+      genreId: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate,
     };
   }
 
   doSubmit = () => {
-    const { navigate } = this.props.params;
+    const { navigate } = this.props;
 
     saveMovie(this.state.data);
 
-    return () => navigate("/");
+    return navigate("/");
   };
 
   render() {
