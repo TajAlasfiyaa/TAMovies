@@ -23,14 +23,14 @@ class MovieForms extends Form {
 
     if (params === "new") return;
     const movie = getMovie(params);
-    if (!movie) return;
+    if (!movie) return (window.location = "/not-found");
     else this.setState({ data: this.mapToViewModel(movie) });
   }
   componentWillUnmount() {
-    const { params, navigate } = this.props;
-    if (params === "new") return;
-    const movie = getMovie(params);
-    if (!movie) return navigate("/not-found");
+    // const { params, navigate } = this.props;
+    // if (params === "new") return;
+    // const movie = getMovie(params);
+    // if (!movie) return navigate("/not-found");
   }
   schema = {
     _id: Joi.string(),

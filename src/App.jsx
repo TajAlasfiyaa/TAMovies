@@ -10,23 +10,29 @@ import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
 import RegisterForm from "./components/registerForm";
 import NewMovies from "./components/newMovies";
+import Home from "./components/home";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
-    <div className="App min-h-full">
-      <NavBar />
-      <div className="content 		">
-        <Routes>
-          <Route path="/register" element={<RegisterForm />}></Route>
-          <Route path="/login" element={<LoginForm />}></Route>
-          <Route path="/movies/:id" element={<MoviesForm />} />
-          <Route path="/movies" element={<Movies />}></Route>
-          <Route path="/" element={<Movies />}></Route>
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/group" element={<Group />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+    <div>
+      <Toaster />
+      <div className="App min-h-full">
+        <NavBar />
+        <div className="content 		">
+          <Routes>
+            <Route path="/register" element={<RegisterForm />}></Route>
+            <Route path="/login" element={<LoginForm />}></Route>
+            <Route path="/movies/:id" element={<MoviesForm />} />
+            <Route path="/movies" element={<Movies />}></Route>
+            <Route path="/" element={<Movies />}></Route>
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/test" element={<Home />} />
+            <Route path="/group" element={<Group />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

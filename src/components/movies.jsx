@@ -9,6 +9,8 @@ import MoviesTable from "./moviesTable";
 import _ from "lodash";
 import { Link, Outlet } from "react-router-dom";
 import TableSearch from "./tablesearch";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 class Movies extends Component {
   state = {
@@ -21,9 +23,14 @@ class Movies extends Component {
     selectedGenre: null,
     filteredlength: 10,
   };
-  componentDidMount() {
-    const genres = [{ name: "All Genres ", _id: null }, ...getGenres()];
-    this.setState({ movies: getMovies(), genres });
+  async componentDidMount() {
+    const { data } = await axios.get("http://localhost:3900/api/genres");
+    const { data: movies } = await axios.get(
+      "http://localhost:3900/api/movies"
+    );
+    console.log(movies);
+    const genres = [{ name: "All Genres ", _id: null }, ...data];
+    this.setState({ movies: movies, genres });
   }
   handleDelete = (movie) => {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
