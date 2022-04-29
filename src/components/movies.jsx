@@ -12,11 +12,12 @@ import TableSearch from "./tablesearch";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
+const apiEndPoint = "http://localhost:3900/api";
 class Movies extends Component {
   state = {
     movies: [],
     genres: [],
-    pageSize: 4,
+    pageSize: 10,
     currentPage: 1,
     sortColumn: { path: "title", order: "asc" },
     searchQuery: "",
@@ -24,17 +25,24 @@ class Movies extends Component {
     filteredlength: 10,
   };
   async componentDidMount() {
-    const { data } = await axios.get("http://localhost:3900/api/genres");
-    const { data: movies } = await axios.get(
-      "http://localhost:3900/api/movies"
-    );
-    console.log(movies);
+    const { data } = await axios.get(apiEndPoint + "/genres");
+    const { data: movies } = await axios.get(apiEndPoint + "/movies");
     const genres = [{ name: "All Genres ", _id: null }, ...data];
     this.setState({ movies: movies, genres });
   }
-  handleDelete = (movie) => {
+  handleDelete = async (movie) => {
+    const originalMovies = this.state.movies;
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
+    try {
+      const myPromise = await axios.delete(
+        apiEndPoint + "/movies/" + movie._id
+      );
+    } catch {
+      this.setState({ movies: originalMovies });
+    }
+
     this.setState({ movies });
+    toast.success("deleted successfuly");
   };
   handleLike = (move) => {
     const movies = [...this.state.movies];

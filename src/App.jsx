@@ -14,9 +14,9 @@ import Home from "./components/home";
 import { Toaster } from "react-hot-toast";
 function App() {
   return (
-    <div>
+    <div className="">
       <Toaster />
-      <div className="App min-h-full">
+      <div className="App ">
         <NavBar />
         <div className="content 		">
           <Routes>
